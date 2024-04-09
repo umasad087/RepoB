@@ -1,0 +1,12 @@
+name: Dispatch Event to Repo A
+on: push
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Repository Dispatch
+      run: |
+        curl -X POST https://api.github.com/repos/<OWNER>/<REPO_A>/dispatches \
+        -H "Authorization: token ${{ secrets.ACCESS_TOKEN }}" \
+        -H "Accept: application/vnd.github.everest-preview+json" \
+        --data '{"event_type": "Testing_dispatch", "client_payload": { "URL": "https://github.com/umasad087/RepoB/new/main" }}'
