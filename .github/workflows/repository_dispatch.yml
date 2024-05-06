@@ -1,34 +1,16 @@
-name: Developer Controlled Pipeline
+name: Workflow Triggered by Other Repository
 
 on:
   repository_dispatch:
-    types: [build, deploy]
+    types: [triggered-from-other-repo]
 
 jobs:
-  compile-code:
-    if: github.event.client_payload.type == 'build'
+  process:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Compile code
-        run: echo "Compiling code..."
-        # Replace this with actual build commands
-
-  build-images:
-    if: github.event.client_payload.type == 'build'
-    needs: compile-code
-    runs-on: ubuntu-latest
-    steps:
-      - name: Build Docker images
-        run: echo "Building Docker images..."
-        # Use actual Docker commands here
-
-  deploy:
-    if: github.event.client_payload.type == 'deploy'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy images
-        run: echo "Deploying images..."
-        # Use actual deployment commands here
+      - name: Run tasks
+        run: echo "Performing tasks..."
+      - name: Complete task
+        run: echo "Tasks completed."
