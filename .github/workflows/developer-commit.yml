@@ -1,4 +1,4 @@
-name: Trigger Workflow in Another Repository with Custom Payload
+name: Trigger Another Repository Workflow with Custom Payload
 
 on:
   push:
@@ -9,14 +9,18 @@ jobs:
   trigger:
     runs-on: ubuntu-latest
     steps:
-      - name: main workflow initate
+      # First, check out the current repository to access the Git history
+      - name: Check out the repository
+        uses: actions/checkout@v2
+
+      # Define the username, repository URL, and commit message
+      - name: Trigger workflow in RepoA
         run: |
-          
-          USERNAME="${{ github.actor }}"
-          REPO_URL="https://github.com/${{ github.repository }}"
-          COMMIT_MESSAGE="$(git log -1 --pretty=%B)"
-          
-          
+          USERNAME="${{ github.actor }}"  # Username of the action triggerer
+          REPO_URL="https://github.com/${{ github.repository }}"  # Repository URL
+          COMMIT_MESSAGE="$(git log -1 --pretty=%B)"  # Retrieve the latest commit message
+
+          # Use the GitHub REST API to trigger a dispatch event in RepoA
           curl -X POST \
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: token ${TOKEN}" \
