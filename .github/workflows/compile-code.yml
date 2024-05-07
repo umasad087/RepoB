@@ -5,7 +5,7 @@ on:
     types: [compile-code]
 
 jobs:
-  process:
+  compile-code:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -14,3 +14,13 @@ jobs:
         run: echo "Performing compile code tasks..."
       - name: Complete task
         run: echo "code compiled tasks completed."
+  build-image:
+    needs: compile-code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run build image
+        run: echo "Performing buld image tasks..."
+      - name: Complete Task
+        run: echo "Build image tasks completed."
