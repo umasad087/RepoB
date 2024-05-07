@@ -1,0 +1,16 @@
+name: Workflow Triggered by Other Repository to compile code
+
+on:
+  repository_dispatch:
+    types: [deploy-image]
+
+jobs:
+  deploy-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run deploy commands
+        run: echo "Performing deployment tasks..."
+      - name: Complete task
+        run: echo "deployment tasks completed."
