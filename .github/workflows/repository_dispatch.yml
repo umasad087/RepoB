@@ -1,8 +1,8 @@
-name: Workflow Triggered by Other Repository
+name: Workflow Triggered by Other Repository to compile code
 
 on:
   repository_dispatch:
-    types: [triggered-from-other-repo]
+    types: [compile-code]
 
 jobs:
   process:
@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Run tasks
-        run: echo "Performing tasks..."
+      - name: Run compile code
+        run: echo "Performing compile code tasks..."
       - name: Complete task
-        run: echo "Tasks completed."
+        run: echo "code compiled tasks completed."
