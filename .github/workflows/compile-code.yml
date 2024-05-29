@@ -1,6 +1,11 @@
 name: Workflow Triggered by Other Repository to compile code
 
 on:
+  workflow_call:
+    inputs: 
+      example_input:
+        description: 'An example input'
+        type: string
   repository_dispatch:
     types: [compile-code]
 
